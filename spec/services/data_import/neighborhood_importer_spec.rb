@@ -19,5 +19,15 @@ RSpec.describe DataImport::NeighborhoodImporter do
       described_class.call
       expect(Neighborhood.where.not(name: nil).count).to eq(Neighborhood.count)
     end
+
+    it "imports only Salvador neighborhoods" do
+      described_class.call
+      expect(Neighborhood.where.not(city_ibge_code: "2927408")).to be_empty
+    end
+
+    it "imports every Salvador neighborhood from the GeoJSON file" do
+      described_class.call
+      expect(Neighborhood.count).to eq(170)
+    end
   end
 end

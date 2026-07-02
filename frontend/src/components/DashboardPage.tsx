@@ -14,7 +14,7 @@ import { METRIC_LABELS } from "./Map/NeighborhoodLayer";
 import MapLegend from "./Map/MapLegend";
 
 const DEFAULT_FILTERS: Filters = {
-  type: "01,02,04,05,32",
+  type: "",
   legal_nature: "",
   management: "",
   sus_only: false,

@@ -442,7 +442,7 @@ describe("FilterPanel", () => {
       await user.click(screen.getByRole("button", { name: /Redefinir filtros/i }));
 
       expect(onChange).toHaveBeenCalledWith({
-        type: "01,02,04,05,32",
+        type: "",
         legal_nature: "",
         management: "",
         sus_only: false,

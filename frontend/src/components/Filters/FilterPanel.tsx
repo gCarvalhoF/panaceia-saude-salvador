@@ -279,7 +279,7 @@ export default function FilterPanel({
                 className="w-full text-sm text-gray-500 border border-gray-300 rounded px-3 py-1.5 hover:bg-gray-50 transition-colors"
                 onClick={() =>
                   onChange({
-                    type: "01,02,04,05,32",
+                    type: "",
                     legal_nature: "",
                     management: "",
                     sus_only: false,

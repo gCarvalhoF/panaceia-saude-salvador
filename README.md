@@ -300,7 +300,7 @@ GET /api/v1/dashboard/service_summary
 | Fonte | Dados |
 |-------|-------|
 | CNES (DataSUS, agosto/2025) | Estabelecimentos, equipamentos, serviços e leitos. `is_active` é derivado de `CO_MOTIVO_DESAB` (estabelecimentos desativados são marcados como inativos) |
-| IBGE Censo 2022 — `BA_bairros_CD2022.geojson` | Polígonos dos bairros + hierarquia administrativa completa (região → UF → município → distrito → subdistrito) + `area_km2` + população total |
+| IBGE Censo 2022 — `BA_bairros_CD2022.geojson` | Polígonos dos bairros + hierarquia administrativa completa (região → UF → município → distrito → subdistrito) + `area_km2` + população total. O arquivo cobre toda a Bahia; o importador filtra apenas Salvador (`CD_MUN` 2927408), ignorando os bairros dos demais municípios |
 | IBGE Censo 2022 — microdata (`agregados_por_bairros_*.csv`) | Demografia detalhada por bairro: faixas etárias finas (0–4, 5–9, …, 70+) e cor/raça × sexo. Joinada por `CD_BAIRRO` |
 
 ---

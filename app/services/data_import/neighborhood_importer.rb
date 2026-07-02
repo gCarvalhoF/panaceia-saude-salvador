@@ -5,9 +5,16 @@ module DataImport
       path = ibge_geo_data_path("BA_bairros_CD2022.geojson")
       geojson = JSON.parse(File.read(path))
       count = 0
+      skipped = 0
 
       geojson["features"].each do |feature|
         props = feature["properties"]
+
+        unless salvador_neighborhood?(props)
+          skipped += 1
+          next
+        end
+
         name = props["NM_BAIRRO"]&.strip
         neighborhood_ibge_code = props["CD_BAIRRO"]
         next if neighborhood_ibge_code.blank?
@@ -26,11 +33,15 @@ module DataImport
         Rails.logger.warn "Could not import neighborhood '#{name}': #{e.message}"
       end
 
-      log "Imported #{count} neighborhoods"
+      log "Imported #{count} neighborhoods (skipped #{skipped} outside Salvador)"
       count
     end
 
     private
+
+    def salvador_neighborhood?(props)
+      props["CD_MUN"]&.start_with?(SALVADOR_MUNICIPALITY_CODE)
+    end
 
     def ibge_neighborhood_data_mapping
       {
