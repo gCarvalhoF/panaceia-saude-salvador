@@ -45,8 +45,8 @@ export default function EstablishmentTypeChart({ data, onTypeClick }: Props) {
             labelLine={false}
             onClick={
               onTypeClick
-                ? (entry: { code: string }) => {
-                    if (entry.code !== "outros") onTypeClick(entry.code);
+                ? (data) => {
+                    if (data.payload.code !== "outros") onTypeClick(data.payload.code);
                   }
                 : undefined
             }

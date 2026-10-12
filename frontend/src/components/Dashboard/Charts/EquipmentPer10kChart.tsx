@@ -77,7 +77,7 @@ export default function EquipmentPer10kChart({
             style={{ cursor: onNeighborhoodClick ? "pointer" : "default" }}
             onClick={
               onNeighborhoodClick
-                ? (entry: { neighborhood: string }) => onNeighborhoodClick(entry.neighborhood)
+                ? (data) => onNeighborhoodClick(data.payload.neighborhood)
                 : undefined
             }
           />

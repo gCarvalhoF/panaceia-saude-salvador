@@ -51,7 +51,7 @@ export default function ServiceSummaryChart({ data, onServiceClick }: Props) {
             style={{ cursor: onServiceClick ? "pointer" : "default" }}
             onClick={
               onServiceClick
-                ? (entry: { code: string }) => onServiceClick(entry.code)
+                ? (data) => onServiceClick(data.payload.code)
                 : undefined
             }
           />

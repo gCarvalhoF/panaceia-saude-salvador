@@ -575,6 +575,14 @@ SEMPRE USANDO TESTES PROGRAMÁTICOS
 - [x] Selectors de bairro (filtro e comparacao) exibem o municipio como anotacao secundaria, util quando o dataset cobre mais de uma cidade
 - [x] Validacao de unicidade do nome do bairro removida do model — IBGE permite nomes repetidos em distritos/subdistritos diferentes; identidade passa a ser o `neighborhood_ibge_code`
 
+### Fase 8 - Deploy de producao no homelab
+- [x] Imagem Docker unica: estagio Node compila o React; Rails serve a SPA em `/` (SpaController, `index.html` com `no-cache`) e a API na mesma origem
+- [x] `config.hosts` em producao via `RAILS_HOSTS`; `/up` fora da verificacao de host
+- [x] Removido `app/services/cidacs/api.rb` (nao usado; quebrava o eager load de producao)
+- [x] Corrigidos 12 erros de TypeScript que impediam `npm run build`; `typecheck` adicionado ao CI
+- [x] LXC `panaceia.homelab` (VMID 108, 192.168.68.210) + role Ansible `panaceia` + tunel Cloudflare em `panaceia.gabrielcf.com` (repositorio `homelab-iac`)
+- [x] Primeiro boot cria os bancos e importa CNES/IBGE a partir de `aux-data` copiado para o LXC; sem backups (dados reproduziveis)
+
 ---
 
 ## 10. Configuracao Tecnica
@@ -625,4 +633,5 @@ O frontend usa `VITE_API_URL=http://web:3000` para que o proxy Vite alcance o co
 | Identidade do bairro passa a ser `neighborhood_ibge_code` (nao `name`) | IBGE permite nomes repetidos em distritos diferentes (ex: varios "Centro"); upsert por codigo evita colisoes e quebra de string match |
 | Detalhamento demografico so no payload do endpoint `compare` | 23 colunas extras (faixas etarias finas + cor/raca x sexo) sao caras no `index` (455 bairros); o `compare` carrega no maximo 5 bairros e e o unico consumidor desses campos |
 | `is_active` derivado de `CO_MOTIVO_DESAB` no CNES | O dataset CNES inclui estabelecimentos desativados; antes todos eram marcados como ativos, distorcendo metricas. Vazio = ativo, preenchido = motivo da desativacao |
+| Rails serve a SPA compilada em producao (imagem unica) | Mesma origem para SPA e API: sem CORS e sem URL de API em tempo de build; o frontend ja usa URLs relativas (`/api/v1/...`) |
 | Plataforma `linux/amd64` explicita no docker-compose | Em hosts ARM (Apple Silicon) o PostGIS-Alpine nao tem build nativo; forcar amd64 (com emulacao) garante paridade entre dev local e CI |

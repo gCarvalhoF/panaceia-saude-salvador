@@ -364,8 +364,21 @@ O workflow do GitHub Actions (`.github/workflows/ci.yml`) executa tudo via Docke
 | `scan` | Brakeman — análise de segurança Rails |
 | `lint` | RuboCop — estilo Ruby |
 | `test` | RSpec — testes backend |
-| `lint_frontend` | ESLint — estilo TypeScript/React |
+| `lint_frontend` | ESLint + `tsc --noEmit` — estilo e tipos TypeScript/React |
 | `test_frontend` | Vitest — testes frontend |
+
+---
+
+## Produção
+
+Em produção o `Dockerfile` gera uma imagem única: o React é compilado em um estágio Node e servido pelo próprio Rails (Thruster na porta 80), na mesma origem da API. A instância pública roda no homelab em **https://panaceia.gabrielcf.com** (LXC provisionado pelo repositório `homelab-iac`). Detalhes em [docs/phase8-deployment.md](docs/phase8-deployment.md).
+
+| Variável | Uso |
+|----------|-----|
+| `SECRET_KEY_BASE` | Obrigatória (não há `master.key`) |
+| `RAILS_HOSTS` | Hosts permitidos, separados por vírgula (vazio = qualquer host) |
+| `POSTGRES_HOST` / `POSTGRES_PORT` | Endereço do PostGIS |
+| `DADOS_ACESSO_SAUDE_SALVADOR_DATABASE_PASSWORD` | Senha do usuário `dados_acesso_saude_salvador` |
 
 ---
 
@@ -378,6 +391,8 @@ O workflow do GitHub Actions (`.github/workflows/ci.yml`) executa tudo via Docke
 - [docs/phase4-implementation.md](docs/phase4-implementation.md) — Refinamentos: hospitais de referência, comparativo entre bairros, responsividade mobile
 - [docs/phase5-implementation.md](docs/phase5-implementation.md) — Filtros globais, interatividade nos gráficos, clustering, sidebar collapsível, comparação split
 - [docs/phase6-implementation.md](docs/phase6-implementation.md) — IBGE como fonte única: schema migration, NeighborhoodImporter rewrite, IbgeCensusImporter
+- [docs/phase7-implementation.md](docs/phase7-implementation.md) — UI centrada no mapa: painéis flutuantes sobre o mapa em tela cheia
+- [docs/phase8-deployment.md](docs/phase8-deployment.md) — Deploy de produção no homelab: imagem única (API + SPA), host authorization, LXC via homelab-iac, importação no primeiro boot
 
 ---
 

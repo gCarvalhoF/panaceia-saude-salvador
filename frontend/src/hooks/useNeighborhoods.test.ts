@@ -5,7 +5,7 @@ import { mockNeighborhoods } from "../test/fixtures";
 
 describe("useNeighborhoods", () => {
   beforeEach(() => {
-    vi.spyOn(global, "fetch");
+    vi.spyOn(globalThis, "fetch");
   });
 
   afterEach(() => {

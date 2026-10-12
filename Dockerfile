@@ -25,6 +25,17 @@ ENV RAILS_ENV="production" \
     BUNDLE_PATH="/usr/local/bundle" \
     BUNDLE_WITHOUT="development"
 
+# Build the React frontend; its output is served by Rails (see SpaController)
+FROM docker.io/library/node:20-slim AS frontend
+
+WORKDIR /frontend
+
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm ci
+
+COPY frontend/ ./
+RUN npm run build
+
 # Throw-away build stage to reduce size of final image
 FROM base AS build
 
@@ -41,6 +52,11 @@ RUN bundle install && \
 
 # Copy application code
 COPY . .
+
+# Static frontend files (hashed bundles, images) go to public/; index.html is
+# kept out of public/ so SpaController can serve it without long-lived caching.
+COPY --from=frontend /frontend/dist/ public/
+RUN mkdir -p frontend/dist && mv public/index.html frontend/dist/index.html
 
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/

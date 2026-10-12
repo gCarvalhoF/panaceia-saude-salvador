@@ -45,3 +45,7 @@
 /Dockerfile*
 
 /aux-data/*
+
+# Frontend deps and build output are produced inside the image
+/frontend/node_modules
+/frontend/dist

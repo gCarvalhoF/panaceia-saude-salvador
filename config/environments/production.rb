@@ -77,11 +77,10 @@ Rails.application.configure do
   config.active_record.attributes_for_inspect = [ :id ]
 
   # Enable DNS rebinding protection and other `Host` header attacks.
-  # config.hosts = [
-  #   "example.com",     # Allow requests from example.com
-  #   /.*\.example\.com/ # Allow requests from subdomains like `www.example.com`
-  # ]
-  #
+  # RAILS_HOSTS is a comma-separated allowlist (e.g. "panaceia.gabrielcf.com,192.168.68.210");
+  # leaving it empty allows any host.
+  config.hosts = ENV.fetch("RAILS_HOSTS", "").split(",").map(&:strip).reject(&:empty?)
+
   # Skip DNS rebinding protection for the default health check endpoint.
-  # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+  config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 end

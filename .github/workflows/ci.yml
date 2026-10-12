@@ -65,7 +65,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Lint frontend code
-        run: docker compose run --rm --no-deps frontend sh -c "npm install && npm run lint"
+        run: docker compose run --rm --no-deps frontend sh -c "npm install && npm run lint && npm run typecheck"
 
   test_frontend:
     runs-on: ubuntu-latest

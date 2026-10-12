@@ -9,7 +9,7 @@ const mockResponse = {
 
 describe("useNeighborhoodComparison", () => {
   beforeEach(() => {
-    vi.spyOn(global, "fetch");
+    vi.spyOn(globalThis, "fetch");
   });
 
   afterEach(() => {

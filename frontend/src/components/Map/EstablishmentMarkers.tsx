@@ -31,8 +31,8 @@ function getIcon(displayType: string) {
 function HoverMarker({ feature }: { feature: NonNullable<Props["data"]["features"][number]> }) {
   const [lng, lat] = feature.geometry!.coordinates;
   const props = feature.properties;
-  const markerRef = useRef<import("leaflet").Marker>(null);
-  const closeTimer = useRef<ReturnType<typeof setTimeout>>(null);
+  const markerRef = useRef<import("leaflet").Marker | null>(null);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const cancelClose = useCallback(() => {
     if (closeTimer.current) {
