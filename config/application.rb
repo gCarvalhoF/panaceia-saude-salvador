@@ -28,5 +28,8 @@ module DadosAcessoSaudeSalvador
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    # Built React frontend served at "/" by SpaController.
+    config.x.spa_index_path = Rails.root.join("frontend", "dist", "index.html")
   end
 end

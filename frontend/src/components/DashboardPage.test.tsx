@@ -57,7 +57,7 @@ async function expandFilters(user: ReturnType<typeof userEvent.setup>) {
 
 describe("DashboardPage", () => {
   beforeEach(() => {
-    vi.spyOn(global, "fetch");
+    vi.spyOn(globalThis, "fetch");
   });
 
   afterEach(() => {

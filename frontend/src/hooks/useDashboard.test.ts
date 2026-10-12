@@ -21,7 +21,7 @@ const emptyFilters: Filters = {
 
 describe("useDashboard", () => {
   beforeEach(() => {
-    vi.spyOn(global, "fetch");
+    vi.spyOn(globalThis, "fetch");
   });
 
   afterEach(() => {

@@ -17,7 +17,7 @@ const defaultFilters: Filters = {
 
 describe("useEstablishments", () => {
   beforeEach(() => {
-    vi.spyOn(global, "fetch");
+    vi.spyOn(globalThis, "fetch");
   });
 
   afterEach(() => {
@@ -142,7 +142,7 @@ describe("useEstablishments", () => {
 
 describe("useEstablishmentDetail", () => {
   beforeEach(() => {
-    vi.spyOn(global, "fetch");
+    vi.spyOn(globalThis, "fetch");
   });
 
   afterEach(() => {
